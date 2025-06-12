@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黄山太平湖旅游预算规划 | 正宗徽州味道</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink-black: #1A1A1A;
+            --charcoal: #2D2D2D;
+            --medium-gray: #666666;
+            --light-gray: #CCCCCC;
+            --paper-white: #FEFEFE;
+            --warm-white: #FAFAFA;
+            --subtle-gray: #F8F8F8;
+            --accent-gray: #8B8B8B;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', '微软雅黑', 'SimSun', '宋体', sans-serif;
+            line-height: 1.6;
+            color: var(--ink-black);
+            background: var(--paper-white);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(26,26,26,0.1), rgba(45,45,45,0.05)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="mountainGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23666666"/><stop offset="50%" style="stop-color:%238B8B8B"/><stop offset="100%" style="stop-color:%232D2D2D"/></linearGradient></defs><polygon points="0,600 200,200 400,100 600,80 800,120 1000,180 1200,150 1200,600" fill="url(%23mountainGrad)" opacity="0.3"/><polygon points="0,600 150,350 350,300 550,250 750,280 950,320 1200,290 1200,600" fill="%23F8F8F8" opacity="0.9"/><circle cx="900" cy="400" r="80" fill="%23CCCCCC" opacity="0.4"/><circle cx="880" cy="420" r="60" fill="%23666666" opacity="0.2"/></svg>');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: var(--ink-black);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(204,204,204,0.05) 0%, 
+                rgba(139,139,139,0.08) 25%,
+                rgba(102,102,102,0.05) 50%,
+                rgba(45,45,45,0.08) 75%,
+                rgba(26,26,26,0.05) 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: rgba(254,254,254,0.95);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(102,102,102,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #666666, #2D2D2D, #1A1A1A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.85;
+            color: var(--charcoal);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .calculator {
+            background: rgba(254,254,254,0.98);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            color: var(--ink-black);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 2px solid var(--light-gray);
+        }
+
+        .calculator h2 {
+            color: var(--charcoal);
+            margin-bottom: 2.5rem;
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            border-bottom: 3px solid var(--medium-gray);
+            padding-bottom: 1rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            background: var(--subtle-gray);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--medium-gray);
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 1.2rem;
+        }
+
+        .slider-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-track {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, var(--medium-gray), var(--accent-gray), var(--charcoal));
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--charcoal);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .slider::-moz-range-track {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, var(--medium-gray), var(--accent-gray), var(--charcoal));
+            border: none;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--charcoal);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--accent-gray);
+            margin-top: 0.5rem;
+        }
+
+        .current-value {
+            text-align: center;
+            font-weight: bold;
+            color: var(--charcoal);
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            background: rgba(45,45,45,0.08);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .budget-result {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--ink-black) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(26,26,26,0.2);
+        }
+
+        .budget-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .budget-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .budget-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .budget-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .recommendations {
+            margin-top: 3rem;
+        }
+
+        .rec-section {
+            margin-bottom: 3rem;
+        }
+
+        .rec-section h3 {
+            color: var(--charcoal);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .rec-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--medium-gray);
+        }
+
+        .rec-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .rec-card h4 {
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .rec-card .price {
+            color: var(--ink-black);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .rec-card .rating {
+            color: #F39C12;
+            margin: 0.5rem 0;
+        }
+
+        .food-product-highlight {
+            background: linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%);
+            border: 3px solid var(--medium-gray);
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--charcoal);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .destinations-section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+        }
+
+        .destinations-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--charcoal);
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid var(--light-gray);
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+        }
+
+        .destination-image {
+            height: 220px;
+            background: linear-gradient(45deg, var(--accent-gray), var(--charcoal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .destination-content {
+            padding: 2rem;
+        }
+
+        .destination-content h3 {
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--charcoal);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--ink-black) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(45,45,45,0.3);
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254,254,254,0.98);
+            backdrop-filter: blur(15px);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ink-black);
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: var(--charcoal);
+            background: rgba(45,45,45,0.08);
+        }
+
+        .footer {
+            background: var(--ink-black);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* 本地美食区域样式 */
+        .cuisine-section {
+            padding: 4rem 0;
+            background: var(--subtle-gray);
+            margin: 2rem 0;
+        }
+
+        .cuisine-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--charcoal);
+        }
+
+        .cuisine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .cuisine-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid var(--light-gray);
+            cursor: pointer;
+        }
+
+        .cuisine-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+        }
+
+        .cuisine-card h3 {
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cuisine-card .price-range {
+            color: var(--ink-black);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cuisine-card .description {
+            color: var(--medium-gray);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .cuisine-highlight {
+            background: linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%);
+            border: 3px solid var(--medium-gray);
+            position: relative;
+        }
+
+        .cuisine-highlight::before {
+            content: '推荐';
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: var(--charcoal);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .detail-btn {
+            background: var(--charcoal);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .detail-btn:hover {
+            background: var(--ink-black);
+            transform: translateY(-2px);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .budget-display {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-content {
+                padding: 2rem;
+            }
+            
+            .calculator {
+                padding: 1.5rem;
+            }
+            
+            .calculator h2 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .rec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .calculator h2 {
+                font-size: 1.8rem;
+            }
+            
+            .budget-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">🏔️ 徽州黄山游</div>
+                <ul class="nav-links">
+                    <li><a href="#calculator">预算计算</a></li>
+                    <li><a href="#destinations">热门景点</a></li>
+                    <li><a href="#cuisine">正宗美食</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="calculator" id="calculator">
+                    <h2>🧮 智能旅游预算计算器</h2>
+                    
+                    <div class="calculator-grid">
+                        <div class="input-group">
+                            <label>👥 出行人数</label>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="groupSize" min="0" max="3" value="1" step="1">
+                                <div class="current-value" id="groupSizeValue">情侣出行</div>
+                                <div class="slider-labels">
+                                    <span>独自</span>
+                                    <span>情侣</span>
+                                    <span>小团体</span>
+                                    <span>大团体</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>🏨 住宿标准</label>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="comfort" min="0" max="3" value="1" step="1">
+                                <div class="current-value" id="comfortValue">标准舒适</div>
+                                <div class="slider-labels">
+                                    <span>经济型</span>
+                                    <span>标准型</span>
+                                    <span>品质型</span>
+                                    <span>豪华型</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>📅 游玩天数</label>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="duration" min="0" max="3" value="1" step="1">
+                                <div class="current-value" id="durationValue">4-6天</div>
+                                <div class="slider-labels">
+                                    <span>2-3天</span>
+                                    <span>4-6天</span>
+                                    <span>1周</span>
+                                    <span>2周+</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>🍽️ 餐饮偏好</label>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="food" min="0" max="3" value="1" step="1">
+                                <div class="current-value" id="foodValue">特色体验</div>
+                                <div class="slider-labels">
+                                    <span>简餐</span>
+                                    <span>特色</span>
+                                    <span>精品</span>
+                                    <span>高档</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>🚗 交通方式</label>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="transport" min="0" max="3" value="1" step="1">
+                                <div class="current-value" id="transportValue">高铁+当地包车</div>
+                                <div class="slider-labels">
+                                    <span>大巴</span>
+                                    <span>高铁</span>
+                                    <span>自驾</span>
+                                    <span>飞机</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>🛍️ 特产购买</label>
+                            <div class="slider-container">
+                                <input type="range" class="slider" id="shopping" min="0" max="3" value="1" step="1">
+                                <div class="current-value" id="shoppingValue">适量购买</div>
+                                <div class="slider-labels">
+                                    <span>少买</span>
+                                    <span>适量</span>
+                                    <span>较多</span>
+                                    <span>大量</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="budget-result" id="budgetResult">
+                        <h3>💰 预算规划结果</h3>
+                        <div class="budget-display">
+                            <div class="budget-item">
+                                <div class="budget-amount" id="perPersonAmount">¥1200-1800</div>
+                                <div class="budget-label">每人预算</div>
+                            </div>
+                            <div class="budget-item">
+                                <div class="budget-amount" id="totalAmount">¥2400-3600</div>
+                                <div class="budget-label">总预算</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                            *包含交通、住宿、餐饮、门票、特产购买等全部费用
+                        </p>
+                    </div>
+
+                    <div class="recommendations" id="recommendations">
+                        <!-- 推荐内容将由JavaScript填充 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="destinations-section" id="destinations">
+        <div class="container">
+            <h2>🏞️ 热门旅游景点</h2>
+            <div class="destinations-grid">
+                <div class="destination-card" onclick="openModal('huangshan-modal')">
+                    <div class="destination-image">黄山风景区</div>
+                    <div class="destination-content">
+                        <h3>黄山风景区 ⭐⭐⭐⭐⭐</h3>
+                        <p><strong>门票：</strong>¥190-230（淡旺季）</p>
+                        <p><strong>索道：</strong>上行¥80，下行¥65</p>
+                        <p><strong>精华：</strong>日出云海、奇松怪石、温泉</p>
+                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                    </div>
+                </div>
+
+                <div class="destination-card" onclick="openModal('taipinghu-modal')">
+                    <div class="destination-image">太平湖</div>
+                    <div class="destination-content">
+                        <h3>太平湖风景区 ⭐⭐⭐⭐⭐</h3>
+                        <p><strong>游船：</strong>¥68-120</p>
+                        <p><strong>活动：</strong>湖上游船、垂钓、环湖徒步</p>
+                        <p><strong>特色：</strong>山水倒影、湖鲜美食</p>
+                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                    </div>
+                </div>
+
+                <div class="destination-card" onclick="openModal('village-modal')">
+                    <div class="destination-image">徽州古村落</div>
+                    <div class="destination-content">
+                        <h3>宏村&西递古村 ⭐⭐⭐⭐⭐</h3>
+                        <p><strong>门票：</strong>宏村¥104，西递¥104</p>
+                        <p><strong>特色：</strong>世界文化遗产、徽派建筑</p>
+                        <p><strong>体验：</strong>传统手工艺、茶道</p>
+                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                    </div>
+                </div>
+
+                <div class="destination-card" onclick="openModal('tunxi-modal')">
+                    <div class="destination-image">屯溪老街</div>
+                    <div class="destination-content">
+                        <h3>屯溪老街 ⭐⭐⭐⭐</h3>
+                        <p><strong>门票：</strong>免费！</p>
+                        <p><strong>特产：</strong>文房四宝、茶叶、传统糕点</p>
+                        <p><strong>美食：</strong>正宗徽州小吃街</p>
+                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                    </div>
+                </div>
+
+                <div class="destination-card" onclick="openModal('qiyun-modal')">
+                    <div class="destination-image">齐云山</div>
+                    <div class="destination-content">
+                        <h3>齐云山道教圣地 ⭐⭐⭐⭐</h3>
+                        <p><strong>门票：</strong>¥75</p>
+                        <p><strong>索道：</strong>¥65（往返）</p>
+                        <p><strong>特色：</strong>道教文化、丹霞地貌</p>
+                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                    </div>
+                </div>
+
+                <div class="destination-card" onclick="openModal('tangyue-modal')">
+                    <div class="destination-image">棠樾牌坊群</div>
+                    <div class="destination-content">
+                        <h3>棠樾牌坊群 ⭐⭐⭐⭐</h3>
+                        <p><strong>门票：</strong>¥100</p>
+                        <p><strong>特色：</strong>明清古牌坊、徽商文化</p>
+                        <p><strong>体验：</strong>历史文化讲解</p>
+                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 本地美食区域 -->
+    <section class="cuisine-section" id="cuisine">
+        <div class="container">
+            <h2>🍽️ 正宗徽州美食</h2>
+            <div class="cuisine-grid">
+                <div class="cuisine-card">
+                    <h3>🐟 臭鳜鱼</h3>
+                    <div class="price-range">¥80-150/份</div>
+                    <div class="description">闻起来臭，吃起来香。经过独特腌制发酵工艺，肉质鲜嫩，是徽菜代表作。</div>
+                    <button class="detail-btn" onclick="openFoodDetail('chouguiyu')">了解详情</button>
+                </div>
+
+                <div class="cuisine-card cuisine-highlight">
+                    <h3>🥓 徽州香肠</h3>
+                    <div class="price-range">¥25-45/包</div>
+                    <div class="description">传承三代手工制作，选用本地黑猪肉，天然发酵，香甜微辣，是登山必备的能量补给。</div>
+                    <button class="detail-btn" onclick="openFoodDetail('xiangchang')">了解详情</button>
+                </div>
+
+                <div class="cuisine-card">
+                    <h3>🥟 黄山烧饼</h3>
+                    <div class="price-range">¥3-8/个</div>
+                    <div class="description">传统木炭烘烤，酥脆可口。有梅干菜、五花肉等多种口味，是当地人的日常小食。</div>
+                    <button class="detail-btn" onclick="openFoodDetail('shaobing')">了解详情</button>
+                </div>
+
+                <div class="cuisine-card">
+                    <h3>🍵 黄山毛峰</h3>
+                    <div class="price-range">¥50-300/盒</div>
+                    <div class="description">产自黄山高山茶园，形似雀舌，香气清幽，是中国十大名茶之一。</div>
+                    <button class="detail-btn" onclick="openFoodDetail('maofeng')">了解详情</button>
+                </div>
+
+                <div class="cuisine-card">
+                    <h3>🍲 李鸿章大杂烩</h3>
+                    <div class="price-range">¥40-80/人</div>
+                    <div class="description">清朝名臣李鸿章创制，食材丰富，包含海参、鱿鱼、鸡肉等，滋补养生。</div>
+                    <button class="detail-btn" onclick="openFoodDetail('dazahui')">了解详情</button>
+                </div>
+
+                <div class="cuisine-card">
+                    <h3>🍢 毛豆腐</h3>
+                    <div class="price-range">¥10-15/份</div>
+                    <div class="description">人工发酵制作，表面长出白色绒毛，口感外酥内嫩，鲜美异常。</div>
+                    <button class="detail-btn" onclick="openFoodDetail('maodoufu')">了解详情</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                <h3 style="color: var(--charcoal); margin-bottom: 1rem;">🎁 正宗徽州特产礼盒</h3>
+                <p>精心搭配：徽州香肠 + 黄山毛峰 + 黄山烧饼 + 山核桃</p>
+                <p style="font-size: 1.2rem; font-weight: bold; margin: 1rem 0; color: var(--ink-black);">¥88-268 多规格礼盒装</p>
+                <p style="color: var(--medium-gray);">✈️ 机场可取货 | 🚚 包邮到家 | 🎀 精美包装</p>
+                <button class="btn" onclick="showFoodContact()" style="margin-top: 1rem;">联系购买正宗特产</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 美食详情弹窗 -->
+    <div id="food-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="food-detail-content">
+                <!-- 详情内容将由JavaScript填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 景点详情弹窗 -->
+    <div id="huangshan-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: var(--charcoal); margin-bottom: 1rem;">🏔️ 黄山风景区详细攻略</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h3>💰 费用明细</h3>
+                    <p><strong>门票：</strong>旺季¥230，淡季¥190</p>
+                    <p><strong>云谷索道：</strong>上行¥80，下行¥65</p>
+                    <p><strong>玉屏索道：</strong>上行¥90，下行¥75</p>
+                    <p><strong>太平索道：</strong>上行¥80，下行¥65</p>
+                    <p><strong>山上住宿：</strong>¥300-1200/晚</p>
+                </div>
+                <div>
+                    <h3>⏰ 最佳行程</h3>
+                    <p><strong>第一天：</strong>云谷索道上山 → 始信峰 → 北海景区 → 山上住宿</p>
+                    <p><strong>第二天：</strong>早起看日出 → 光明顶 → 飞来石 → 玉屏景区 → 迎客松 → 玉屏索道下山</p>
+                    <p><strong>省钱攻略：</strong>住宿一晚必不可少，提前预订有折扣</p>
+                </div>
+                <div>
+                    <h3>📸 必看景点</h3>
+                    <p>🌅 <strong>日出最佳点：</strong>光明顶、清凉台</p>
+                    <p>🌲 <strong>迎客松：</strong>黄山标志性景观</p>
+                    <p>☁️ <strong>云海：</strong>雨后天晴最容易出现</p>
+                    <p>🗿 <strong>飞来石：</strong>红楼梦片头取景地</p>
+                </div>
+                <div>
+                    <h3>🎒 装备建议</h3>
+                    <p>👟 <strong>登山鞋：</strong>防滑必备</p>
+                    <p>🧥 <strong>保暖衣物：</strong>山上温差大</p>
+                    <p>🔦 <strong>手电筒：</strong>看日出必备</p>
+                    <p>🥤 <strong>能量补给：</strong>推荐我们的徽州香肠！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="taipinghu-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: var(--charcoal); margin-bottom: 1rem;">🏞️ 太平湖风景区详细攻略</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h3>💰 费用明细</h3>
+                    <p><strong>游船票：</strong>¥68-120（不同路线）</p>
+                    <p><strong>环湖自行车：</strong>¥30/天</p>
+                    <p><strong>湖边度假村：</strong>¥200-800/晚</p>
+                    <p><strong>湖鲜餐厅：</strong>¥80-200/人</p>
+                </div>
+                <div>
+                    <h3>🎣 特色活动</h3>
+                    <p>🚢 <strong>游船观光：</strong>欣赏湖光山色</p>
+                    <p>🎣 <strong>垂钓体验：</strong>享受宁静时光</p>
+                    <p>🚴 <strong>环湖骑行：</strong>20公里风景线</p>
+                    <p>🏊 <strong>水上运动：</strong>皮划艇、摩托艇</p>
+                </div>
+                <div>
+                    <h3>🍽️ 美食推荐</h3>
+                    <p>🐟 <strong>太平湖鱼头：</strong>当地特色</p>
+                    <p>🦐 <strong>湖虾：</strong>鲜美可口</p>
+                    <p>🥟 <strong>湖边农家菜：</strong>地道风味</p>
+                    <p>🥓 <strong>配菜推荐：</strong>徽州香肠拼盘</p>
+                </div>
+                <div>
+                    <h3>📷 拍照圣地</h3>
+                    <p>🌅 <strong>日出时分：</strong>湖面如镜</p>
+                    <p>🌄 <strong>山水倒影：</strong>经典构图</p>
+                    <p>🌸 <strong>春季花海：</strong>湖边樱花</p>
+                    <p>🍂 <strong>秋季红叶：</strong>层林尽染</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="village-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: var(--charcoal); margin-bottom: 1rem;">🏘️ 徽州古村落详细攻略</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h3>🎫 门票信息</h3>
+                    <p><strong>宏村：</strong>¥104/人</p>
+                    <p><strong>西递：</strong>¥104/人</p>
+                    <p><strong>联票：</strong>¥190/人（两村通票）</p>
+                    <p><strong>学生票：</strong>半价优惠</p>
+                </div>
+                <div>
+                    <h3>🏛️ 必看建筑</h3>
+                    <p>🏠 <strong>承志堂：</strong>徽商豪宅典范</p>
+                    <p>🌊 <strong>月沼：</strong>宏村标志性水景</p>
+                    <p>🎨 <strong>南湖：</strong>画家写生胜地</p>
+                    <p>🏮 <strong>胡文光刺史牌坊：</strong>明代石雕艺术</p>
+                </div>
+                <div>
+                    <h3>🎨 文化体验</h3>
+                    <p>✍️ <strong>书法体验：</strong>¥50/次</p>
+                    <p>🍵 <strong>茶道表演：</strong>¥30/人</p>
+                    <p>🖼️ <strong>传统绘画：</strong>¥80/次</p>
+                    <p>🏺 <strong>陶艺制作：</strong>¥60/次</p>
+                </div>
+                <div>
+                    <h3>🛍️ 特产购买</h3>
+                    <p>🖋️ <strong>文房四宝：</strong>¥30-300</p>
+                    <p>🍵 <strong>黄山毛峰：</strong>¥50-500</p>
+                    <p>🥜 <strong>山核桃：</strong>¥25-60/斤</p>
+                    <p>🥓 <strong>徽州香肠：</strong>正宗手工制作</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tunxi-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: var(--charcoal); margin-bottom: 1rem;">🏪 屯溪老街详细攻略</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h3>🕐 开放时间</h3>
+                    <p><strong>全天开放：</strong>免费游览</p>
+                    <p><strong>最佳时间：</strong>傍晚-夜晚</p>
+                    <p><strong>商铺营业：</strong>8:00-22:00</p>
+                    <p><strong>夜景灯光：</strong>18:00-23:00</p>
+                </div>
+                <div>
+                    <h3>🍜 特色小吃</h3>
+                    <p>🥟 <strong>黄山烧饼：</strong>¥3-8/个</p>
+                    <p>🍢 <strong>毛豆腐：</strong>¥10-15/份</p>
+                    <p>🍲 <strong>徽州小馄饨：</strong>¥8-12/碗</p>
+                    <p>🥓 <strong>现切香肠：</strong>¥15-25/份</p>
+                </div>
+                <div>
+                    <h3>🛍️ 购物指南</h3>
+                    <p>🖋️ <strong>歙砚：</strong>¥50-1000+</p>
+                    <p>🍵 <strong>茶叶专店：</strong>试饮后购买</p>
+                    <p>🎨 <strong>徽州木雕：</strong>¥30-500</p>
+                    <p>🥜 <strong>干货特产：</strong>山核桃、笋干</p>
+                </div>
+                <div>
+                    <h3>📸 拍照建议</h3>
+                    <p>🏮 <strong>红灯笼夜景：</strong>最佳拍摄</p>
+                    <p>🏛️ <strong>徽式建筑：</strong>白墙黑瓦</p>
+                    <p>👥 <strong>人文摄影：</strong>古街生活</p>
+                    <p>🌙 <strong>夜市烟火：</strong>最有生活气息</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qiyun-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: var(--charcoal); margin-bottom: 1rem;">⛰️ 齐云山详细攻略</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h3>🎫 门票费用</h3>
+                    <p><strong>景区门票：</strong>¥75/人</p>
+                    <p><strong>索道往返：</strong>¥65/人</p>
+                    <p><strong>学生优惠：</strong>门票半价</p>
+                    <p><strong>团体票：</strong>10人以上9折</p>
+                </div>
+                <div>
+                    <h3>🛕 道教文化</h3>
+                    <p>🏛️ <strong>太素宫：</strong>主要道观</p>
+                    <p>🗿 <strong>石刻群：</strong>明清摩崖石刻</p>
+                    <p>🕯️ <strong>祈福体验：</strong>¥20-50</p>
+                    <p>📿 <strong>道教法器：</strong>¥15-100</p>
+                </div>
+                <div>
+                    <h3>🎒 游览路线</h3>
+                    <p>🚡 <strong>索道上山：</strong>15分钟到达</p>
+                    <p>🚶 <strong>步行登山：</strong>2-3小时</p>
+                    <p>👁️ <strong>观景台：</strong>俯瞰新安江</p>
+                    <p>🌅 <strong>日出观赏：</strong>早6点最佳</p>
+                </div>
+                <div>
+                    <h3>🍽️ 山顶餐饮</h3>
+                    <p>🍜 <strong>素斋：</strong>¥25-40/人</p>
+                    <p>☕ <strong>山顶茶室：</strong>¥15-30/壶</p>
+                    <p>🥤 <strong>饮料小食：</strong>¥5-15</p>
+                    <p>🥓 <strong>能量补给：</strong>建议自带干粮</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tangyue-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="color: var(--charcoal); margin-bottom: 1rem;">🏛️ 棠樾牌坊群详细攻略</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h3>🎫 门票信息</h3>
+                    <p><strong>门票：</strong>¥100/人</p>
+                    <p><strong>讲解费：</strong>¥80/团</p>
+                    <p><strong>学生票：</strong>¥50/人</p>
+                    <p><strong>团体优惠：</strong>15人以上8.5折</p>
+                </div>
+                <div>
+                    <h3>🏛️ 七座牌坊</h3>
+                    <p>📜 <strong>明代牌坊：</strong>3座，历史悠久</p>
+                    <p>🎨 <strong>清代牌坊：</strong>4座，雕工精美</p>
+                    <p>👑 <strong>鲍文龄妻汪氏节孝坊：</strong>代表作</p>
+                    <p>📚 <strong>历史故事：</strong>每座都有传说</p>
+                </div>
+                <div>
+                    <h3>🏛️ 鲍家花园</h3>
+                    <p>🌸 <strong>盆景园：</strong>徽派盆景艺术</p>
+                    <p>🏠 <strong>古民居：</strong>明清建筑群</p>
+                    <p>🎋 <strong>竹林小径：</strong>幽静雅致</p>
+                    <p>🎨 <strong>石雕艺术：</strong>精美绝伦</p>
+                </div>
+                <div>
+                    <h3>📚 文化体验</h3>
+                    <p>📖 <strong>徽商文化讲解：</strong>了解历史</p>
+                    <p>✍️ <strong>书法体验：</strong>¥30/次</p>
+                    <p>🎨 <strong>传统绘画：</strong>¥50/次</p>
+                    <p>🛍️ <strong>文创产品：</strong>¥15-80</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 徽州黄山游。正宗徽州体验，从山水到味蕾的完美旅程。</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
+                当地攻略 • 预算规划 • 正宗美食 • 特产直供
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 滑块值标签
+        const groupSizeLabels = ['独自一人', '情侣出行', '小团体(3-5人)', '大团体(6+人)'];
+        const comfortLabels = ['经济型住宿', '标准舒适', '品质享受', '豪华体验'];
+        const durationLabels = ['2-3天', '4-6天', '1周', '2周以上'];
+        const foodLabels = ['简餐小吃', '特色体验', '精品餐厅', '高档美食'];
+        const transportLabels = ['大巴出行', '高铁+当地包车', '自驾游', '飞机+租车'];
+        const shoppingLabels = ['少量购买', '适量购买', '较多购买', '大量采购'];
+
+        // 人数对应的倍数
+        const groupSizeMultipliers = [1, 1, 0.85, 0.75]; // 团体有优惠
+        const groupSizeCounts = [1, 2, 4, 8]; // 对应实际人数
+
+        // 更新滑块显示值
+        function updateSliderDisplay() {
+            const groupSize = parseInt(document.getElementById('groupSize').value);
+            const comfort = parseInt(document.getElementById('comfort').value);
+            const duration = parseInt(document.getElementById('duration').value);
+            const food = parseInt(document.getElementById('food').value);
+            const transport = parseInt(document.getElementById('transport').value);
+            const shopping = parseInt(document.getElementById('shopping').value);
+
+            document.getElementById('groupSizeValue').textContent = groupSizeLabels[groupSize];
+            document.getElementById('comfortValue').textContent = comfortLabels[comfort];
+            document.getElementById('durationValue').textContent = durationLabels[duration];
+            document.getElementById('foodValue').textContent = foodLabels[food];
+            document.getElementById('transportValue').textContent = transportLabels[transport];
+            document.getElementById('shoppingValue').textContent = shoppingLabels[shopping];
+        }
+
+        // 预算计算逻辑
+        function updateBudget() {
+            const groupSize = parseInt(document.getElementById('groupSize').value);
+            const comfort = parseInt(document.getElementById('comfort').value);
+            const duration = parseInt(document.getElementById('duration').value);
+            const food = parseInt(document.getElementById('food').value);
+            const transport = parseInt(document.getElementById('transport').value);
+            const shopping = parseInt(document.getElementById('shopping').value);
+
+            // 基础每日价格计算
+            let basePricePerDay = 120; // 基础每日费用
+            
+            // 舒适度倍数 (经济、标准、品质、豪华)
+            const comfortMultipliers = [0.7, 1.0, 1.6, 2.8];
+            basePricePerDay *= comfortMultipliers[comfort];
+            
+            // 天数和实际天数
+            const durationDays = [2.5, 5, 7, 14][duration];
+            const durationMultiplier = duration > 1 ? 0.92 : 1.0; // 长途稍微经济
+            basePricePerDay *= durationMultiplier;
+            
+            // 美食倍数
+            const foodMultipliers = [0.75, 1.0, 1.4, 2.0];
+            basePricePerDay *= foodMultipliers[food];
+            
+            // 交通费用 (每人)
+            const transportCosts = [150, 350, 200, 800][transport]; // 大巴、高铁、自驾油费、飞机
+            
+            // 特产购买费用 (每人)
+            const shoppingCosts = [50, 150, 300, 600][shopping];
+            
+            // 团体规模调整
+            const groupMultiplier = groupSizeMultipliers[groupSize];
+            const actualGroupSize = groupSizeCounts[groupSize];
+            
+            // 计算每人预算
+            const perPersonBudget = Math.round((basePricePerDay * durationDays + transportCosts + shoppingCosts) * groupMultiplier);
+            const totalBudget = perPersonBudget * actualGroupSize;
+            
+            // 显示预算范围
+            const perPersonRange = `¥${Math.round(perPersonBudget * 0.85)}-${Math.round(perPersonBudget * 1.15)}`;
+            const totalRange = `¥${Math.round(totalBudget * 0.85)}-${Math.round(totalBudget * 1.15)}`;
+            
+            document.getElementById('perPersonAmount').textContent = perPersonRange;
+            document.getElementById('totalAmount').textContent = totalRange;
+            
+            // 更新滑块显示
+            updateSliderDisplay();
+            
+            // 生成推荐
+            generateRecommendations(groupSize, comfort, duration, food, transport, shopping, perPersonBudget);
+        }
+
+        function generateRecommendations(groupSize, comfort, duration, food, transport, shopping, budget) {
+            const recommendationsDiv = document.getElementById('recommendations');
+            
+            // 住宿推荐
+            let accommodations = [];
+            let restaurants = [];
+            let localFoods = [];
+            
+            // 根据舒适度推荐酒店 - 使用真实酒店，现在显示4个
+            if (comfort === 0) {
+                accommodations = [
+                    { name: "黄山汤口YHA青年旅舍", rating: "⭐⭐⭐", price: "¥45-85/晚", desc: "背包客首选，干净整洁，位置便利" },
+                    { name: "黄山温泉度假村经济房", rating: "⭐⭐⭐", price: "¥80-120/晚", desc: "可泡温泉，性价比高" },
+                    { name: "汤口镇家庭旅馆", rating: "⭐⭐⭐", price: "¥60-100/晚", desc: "当地人家，体验authentic生活" },
+                    { name: "黄山市区快捷酒店", rating: "⭐⭐⭐", price: "¥55-95/晚", desc: "交通便利，设施基本完善" }
+                ];
+            } else if (comfort === 1) {
+                accommodations = [
+                    { name: "黄山北海宾馆", rating: "⭐⭐⭐⭐", price: "¥180-320/晚", desc: "山上标准酒店，看日出最佳位置" },
+                    { name: "黄山温泉度假村", rating: "⭐⭐⭐⭐", price: "¥220-380/晚", desc: "天然温泉，设施完善，性价比高" },
+                    { name: "黄山国际大酒店", rating: "⭐⭐⭐⭐", price: "¥160-280/晚", desc: "市中心位置，交通便利，服务标准" },
+                    { name: "黄山云谷山庄", rating: "⭐⭐⭐⭐", price: "¥200-350/晚", desc: "景区内酒店，环境优美，服务贴心" }
+                ];
+            } else if (comfort === 2) {
+                accommodations = [
+                    { name: "黄山狮林大酒店", rating: "⭐⭐⭐⭐⭐", price: "¥450-680/晚", desc: "山顶豪华酒店，180度山景，五星服务" },
+                    { name: "黄山昱城皇冠假日酒店", rating: "⭐⭐⭐⭐⭐", price: "¥380-650/晚", desc: "国际五星标准，设施顶级" },
+                    { name: "黄山雨润涵月楼酒店", rating: "⭐⭐⭐⭐⭐", price: "¥320-520/晚", desc: "古建筑改造，奢华与传统完美结合" },
+                    { name: "黄山徽商国际大酒店", rating: "⭐⭐⭐⭐⭐", price: "¥350-580/晚", desc: "徽派建筑风格，高端商务酒店" }
+                ];
+            } else {
+                accommodations = [
+                    { name: "黄山白云宾馆贵宾楼", rating: "⭐⭐⭐⭐⭐", price: "¥800-1500/晚", desc: "山顶总统套房，私人观景台，管家服务" },
+                    { name: "黄山昱城皇冠假日酒店总统套房", rating: "⭐⭐⭐⭐⭐", price: "¥600-1200/晚", desc: "国际五星标准，私人游艇，高尔夫球场" },
+                    { name: "黄山徽商国际大酒店豪华套房", rating: "⭐⭐⭐⭐⭐", price: "¥500-900/晚", desc: "明清古宅改造，私人庭院，专属服务" },
+                    { name: "黄山玉屏楼宾馆VIP房", rating: "⭐⭐⭐⭐⭐", price: "¥700-1300/晚", desc: "迎客松旁，绝佳位置，奢华体验" }
+                ];
+            }
+
+            // 根据餐饮偏好推荐餐厅 - 使用真实餐厅，现在显示4个
+            if (food === 0) {
+                restaurants = [
+                    { name: "屯溪老街小吃街", rating: "⭐⭐⭐⭐", price: "¥15-40/人", specialty: "黄山烧饼、毛豆腐、小馄饨" },
+                    { name: "黄山脚下农家乐", rating: "⭐⭐⭐", price: "¥25-50/人", specialty: "土鸡汤、山笋炒肉、野菜" },
+                    { name: "汤口镇小餐馆", rating: "⭐⭐⭐⭐", price: "¥30-60/人", specialty: "家常菜、当地特色" },
+                    { name: "黄山市区小食堂", rating: "⭐⭐⭐", price: "¥20-45/人", specialty: "经济实惠、分量足" }
+                ];
+            } else if (food === 1) {
+                restaurants = [
+                    { name: "徽商故里酒店", rating: "⭐⭐⭐⭐", price: "¥60-120/人", specialty: "臭鳜鱼、李鸿章大杂烩、徽州毛豆腐" },
+                    { name: "老街第一楼", rating: "⭐⭐⭐⭐", price: "¥55-100/人", specialty: "正宗徽菜，百年老店" },
+                    { name: "黄山迎客松酒店餐厅", rating: "⭐⭐⭐⭐", price: "¥45-85/人", specialty: "山珍野味、时令蔬菜" },
+                    { name: "汪一挑馄饨店", rating: "⭐⭐⭐⭐", price: "¥35-70/人", specialty: "特色馄饨、徽州小菜" }
+                ];
+            } else if (food === 2) {
+                restaurants = [
+                    { name: "临江一楼", rating: "⭐⭐⭐⭐⭐", price: "¥120-200/人", specialty: "精品徽菜，新安江景观餐厅" },
+                    { name: "黄山狮林大酒店中餐厅", rating: "⭐⭐⭐⭐⭐", price: "¥100-180/人", specialty: "山顶美食，云海伴餐" },
+                    { name: "黄山昱城皇冠假日酒店徽菜厅", rating: "⭐⭐⭐⭐⭐", price: "¥80-150/人", specialty: "创新徽菜，国际标准" },
+                    { name: "徽州府衙餐厅", rating: "⭐⭐⭐⭐⭐", price: "¥90-160/人", specialty: "古建筑用餐，文化体验" }
+                ];
+            } else {
+                restaurants = [
+                    { name: "黄山昱城皇冠假日酒店中餐厅", rating: "⭐⭐⭐⭐⭐", price: "¥200-450/人", specialty: "高端徽菜，私人包间，专业服务" },
+                    { name: "黄山国际大酒店贵宾厅", rating: "⭐⭐⭐⭐⭐", price: "¥180-350/人", specialty: "豪华包间，定制菜单" },
+                    { name: "黄山白云宾馆山顶餐厅", rating: "⭐⭐⭐⭐⭐", price: "¥250-500/人", specialty: "古法烹饪，食材顶级，需预约" },
+                    { name: "徽州宴会厅", rating: "⭐⭐⭐⭐⭐", price: "¥220-400/人", specialty: "宴会级别，皇家体验" }
+                ];
+            }
+
+            // 根据购买偏好推荐特产
+            if (shopping === 0) {
+                localFoods = [
+                    { name: "黄山烧饼", price: "¥8-15/盒", desc: "便携小食，经济实惠" },
+                    { name: "山核桃小包装", price: "¥25-35/袋", desc: "营养零食，分量适中" }
+                ];
+            } else if (shopping === 1) {
+                localFoods = [
+                    { name: "徽州香肠礼盒", price: "¥45-68/盒", desc: "🔥 我们的招牌产品！传统手工，真空包装", highlight: true },
+                    { name: "黄山毛峰茶叶", price: "¥80-150/盒", desc: "高山绿茶，清香甘甜" },
+                    { name: "综合干货礼包", price: "¥60-90/包", desc: "山核桃+笋干+黄山烧饼" }
+                ];
+            } else if (shopping === 2) {
+                localFoods = [
+                    { name: "精品徽州香肠大礼盒", price: "¥128-188/套", desc: "🌟 三种口味香肠+茶叶+烧饼，精美包装", highlight: true },
+                    { name: "特级黄山毛峰", price: "¥200-350/盒", desc: "明前茶，限量收藏版" },
+                    { name: "徽州文房四宝套装", price: "¥150-300/套", desc: "歙砚+徽墨+宣纸+湖笔" }
+                ];
+            } else {
+                localFoods = [
+                    { name: "徽州美食豪华礼盒", price: "¥288-588/套", desc: "🎁 全系列香肠+顶级茶叶+精美工艺品，企业定制", highlight: true },
+                    { name: "收藏级黄山毛峰", price: "¥500-1000/盒", desc: "大师手工制作，限量版包装" },
+                    { name: "徽州文化大礼包", price: "¥300-800/套", desc: "文房四宝+字画+工艺品全套" }
+                ];
+            }
+
+            // 生成推荐HTML
+            recommendationsDiv.innerHTML = `
+                <div class="rec-section">
+                    <h3>🏨 推荐住宿</h3>
+                    <div class="rec-grid">
+                        ${accommodations.map(hotel => `
+                            <div class="rec-card">
+                                <h4>${hotel.name} ${hotel.rating}</h4>
+                                <p class="price">${hotel.price}</p>
+                                <p>${hotel.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="rec-section">
+                    <h3>🍽️ 推荐餐厅</h3>
+                    <div class="rec-grid">
+                        ${restaurants.map(restaurant => `
+                            <div class="rec-card">
+                                <h4>${restaurant.name} ${restaurant.rating}</h4>
+                                <p class="price">${restaurant.price}</p>
+                                <p><strong>招牌菜：</strong>${restaurant.specialty}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="rec-section">
+                    <h3>🛍️ 特产推荐</h3>
+                    <div class="rec-grid">
+                        ${localFoods.map(food => `
+                            <div class="rec-card ${food.highlight ? 'food-product-highlight' : ''}">
+                                ${food.highlight ? '<div class="product-badge">推荐</div>' : ''}
+                                <h4>${food.name}</h4>
+                                <p class="price">${food.price}</p>
+                                <p>${food.desc}</p>
+                                ${food.highlight ? '<p style="color: var(--charcoal); font-weight: bold; margin-top: 0.5rem;">💫 正宗手工制作，游客必买！</p>' : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="text-align: center; margin-top: 2rem; background: rgba(45,45,45,0.05); padding: 1.5rem; border-radius: 15px;">
+                        <p style="color: var(--charcoal); font-weight: bold; margin-bottom: 1rem;">
+                            🎯 想要品尝最正宗的徽州香肠和获取内部特产价格？
+                        </p>
+                        <button class="btn" onclick="showFoodContact()">联系我们的特产专家</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 美食详情功能
+        function openFoodDetail(foodId) {
+            const foodDetails = {
+                chouguiyu: {
+                    title: '🐟 臭鳜鱼',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <h3>制作工艺</h3>
+                                <p>腌制发酵3-7天，独特的发酵工艺让鱼肉产生特殊香味。使用传统手法，每一条鱼都经过精心处理。</p>
+                                <h4>最佳餐厅推荐</h4>
+                                <p>• 老街徽菜馆 - ¥120/份<br>• 得月楼 - ¥95/份<br>• 临江一楼 - ¥150/份</p>
+                            </div>
+                            <div>
+                                <h3>口感特点</h3>
+                                <p>闻起来臭，吃起来香，肉质鲜嫩，入口即化。配合徽州特色调料，味道层次丰富。</p>
+                                <h4>最佳搭配</h4>
+                                <p>配白米饭食用，再来一份我们的徽州香肠作为配菜，完美的徽州风味组合！</p>
+                            </div>
+                        </div>
+                    `
+                },
+                xiangchang: {
+                    title: '🥓 徽州香肠',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                            <div style="background: linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--medium-gray);">
+                                <h3>传统工艺 <span style="background: var(--charcoal); color: white; padding: 0.2rem 0.5rem; border-radius: 5px; font-size: 0.8rem;">独家</span></h3>
+                                <p>我们家传承三代的手工制作工艺，选用本地优质黑猪肉，天然发酵30天以上，不添加任何防腐剂。</p>
+                                <p><strong>独特配方：</strong>秘制香料配比，香甜微辣，回味无穷</p>
+                            </div>
+                            <div>
+                                <h3>营养价值</h3>
+                                <p>高蛋白、低脂肪，富含人体必需氨基酸。天然发酵过程产生的有益菌群，有助于消化。</p>
+                                <h4>适用场景</h4>
+                                <p>• 🥾 登山能量补给<br>• 🎁 馈赠亲友佳品<br>• 🍽️ 家常菜配菜<br>• ✈️ 旅途便携食品</p>
+                            </div>
+                            <div style="grid-column: 1/-1; background: var(--charcoal); color: white; padding: 2rem; border-radius: 15px; text-align: center;">
+                                <h3>🎁 产地直供优势</h3>
+                                <p>我们是黄山当地的家族作坊，产地直供，省去中间环节，价格更优惠，品质更有保证！</p>
+                                <p style="font-size: 1.2rem; font-weight: bold; margin: 1rem 0;">现货供应：¥25-45/包（真空包装）</p>
+                                <button class="btn" onclick="showFoodContact()" style="background: white; color: var(--charcoal);">立即订购</button>
+                            </div>
+                        </div>
+                    `
+                },
+                shaobing: {
+                    title: '🥟 黄山烧饼',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <h3>传统工艺</h3>
+                                <p>采用传统木炭烘烤技术，饼皮酥脆，内馅鲜美。每个烧饼都经过精心制作，保持最佳口感。</p>
+                                <h4>口味种类</h4>
+                                <p>• 梅干菜烧饼 - 经典口味<br>• 五花肉烧饼 - 荤素搭配<br>• 红豆沙烧饼 - 甜味选择</p>
+                            </div>
+                            <div>
+                                <h3>购买指南</h3>
+                                <p>屯溪老街各大店铺均有销售，建议选择现烤热饼，口感最佳。</p>
+                                <h4>保存方法</h4>
+                                <p>密封包装可保存7-10天，微波炉加热20秒即可恢复酥脆口感。</p>
+                            </div>
+                        </div>
+                    `
+                },
+                maofeng: {
+                    title: '🍵 黄山毛峰',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <h3>产地特色</h3>
+                                <p>产自黄山海拔800-1200米的高山茶园，常年云雾缭绕，得天独厚的自然环境孕育出优质茶叶。</p>
+                                <h4>品质特点</h4>
+                                <p>形似雀舌，峰毫显露，香气清幽，滋味甘醇，汤色清澈明亮。</p>
+                            </div>
+                            <div>
+                                <h3>冲泡方法</h3>
+                                <p>水温85°C，茶水比例1:50，冲泡时间3-5分钟。第一泡用于醒茶，第二泡开始品饮。</p>
+                                <h4>等级价格</h4>
+                                <p>• 特级毛峰 - ¥200-300/盒<br>• 一级毛峰 - ¥100-150/盒<br>• 二级毛峰 - ¥50-80/盒</p>
+                            </div>
+                        </div>
+                    `
+                },
+                dazahui: {
+                    title: '🍲 李鸿章大杂烩',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <h3>历史典故</h3>
+                                <p>清朝名臣李鸿章在访问美国时创制，将多种中式食材巧妙搭配，展现了中华美食的包容性。</p>
+                                <h4>食材组成</h4>
+                                <p>海参、鱿鱼、鸡肉、火腿、冬笋、香菇等十余种食材精心烹制。</p>
+                            </div>
+                            <div>
+                                <h3>营养价值</h3>
+                                <p>营养丰富，搭配均衡，具有滋补养生的功效，老少皆宜。</p>
+                                <h4>推荐餐厅</h4>
+                                <p>• 徽商故里 - ¥80/人<br>• 临江一楼 - ¥65/人<br>• 老街第一楼 - ¥70/人</p>
+                            </div>
+                        </div>
+                    `
+                },
+                maodoufu: {
+                    title: '🍢 毛豆腐',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                            <div>
+                                <h3>制作工艺</h3>
+                                <p>采用人工发酵技术，让豆腐表面长出白色绒毛，这种特殊的发酵过程赋予了豆腐独特的风味。</p>
+                                <h4>口感特色</h4>
+                                <p>外酥内嫩，鲜美异常。表面酥脆，内部依然保持豆腐的嫩滑。</p>
+                            </div>
+                            <div>
+                                <h3>烹饪方式</h3>
+                                <p>可煎、炸、烤，最经典的是油煎配辣椒酱。屯溪老街夜市是品尝的最佳地点。</p>
+                                <h4>最佳品尝</h4>
+                                <p>建议晚上在屯溪老街夜市品尝，现做现吃，配上当地特色辣椒酱，风味绝佳。</p>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+
+            const detail = foodDetails[foodId];
+            if (detail) {
+                document.getElementById('food-detail-content').innerHTML = `
+                    <h2 style="color: var(--charcoal); margin-bottom: 1.5rem;">${detail.title}</h2>
+                    ${detail.content}
+                `;
+                openModal('food-detail-modal');
+            }
+        }
+
+        // 滑块事件监听器
+        ['groupSize', 'comfort', 'duration', 'food', 'transport', 'shopping'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateBudget);
+        });
+
+        // 特产联系
+        function showFoodContact() {
+            alert('🎁 正宗徽州特产直供\n\n📱 微信号：RXM170114 备注：咨询安徽特产\n☎️  客服热线：13917230759\n\n我们提供：\n🥓 传统手工徽州香肠\n🍵 高山黄山毛峰茶叶\n🥟 正宗黄山烧饼\n🎁 精美礼盒装\n\n✈️ 支持机场自取\n🚚 全国包邮\n💰 游客专享价格\n\n现在联系，享受8.5折优惠！');
+        }
+
+        // 弹窗功能
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击关闭按钮或背景关闭弹窗
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('close')) {
+                event.target.closest('.modal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 平滑滚动导航
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(254,254,254,0.99)';
+                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+            } else {
+                nav.style.background = 'rgba(254,254,254,0.98)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // 响应式菜单
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBudget();
+            
+            // 添加移动端菜单按钮
+            if (window.innerWidth <= 768) {
+                const navContent = document.querySelector('.nav-content');
+                const menuButton = document.createElement('button');
+                menuButton.innerHTML = '☰';
+                menuButton.style.cssText = 'background: none; border: none; font-size: 1.5rem; color: var(--charcoal); cursor: pointer;';
+                menuButton.onclick = toggleMobileMenu;
+                navContent.appendChild(menuButton);
+            }
+        });
+
+        // 响应式处理
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.querySelector('.nav-links').style.display = 'flex';
+            } else {
+                document.querySelector('.nav-links').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
