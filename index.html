@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>黄山太平湖旅游预算规划 | 正宗徽州味道</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -577,6 +579,85 @@
             transform: translateY(-2px);
         }
 
+        .details-btn {
+            background: var(--charcoal);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .details-btn:hover {
+            background: var(--ink-black);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(45,45,45,0.3);
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 3px solid var(--medium-gray);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .phone-input-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .phone-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .phone-input:focus {
+            outline: none;
+            border-color: var(--charcoal);
+            box-shadow: 0 0 0 3px rgba(45,45,45,0.1);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--ink-black) 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin: 1rem;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(45,45,45,0.3);
+        }
+
+        .download-btn:disabled {
+            background: var(--light-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         /* 响应式设计 */
         @media (max-width: 1024px) {
             .hero h1 {
@@ -651,9 +732,9 @@
             <div class="nav-content">
                 <div class="logo">🏔️ 徽州黄山游</div>
                 <ul class="nav-links">
-                    <li><a href="#calculator">预算计算</a></li>
-                    <li><a href="#destinations">热门景点</a></li>
-                    <li><a href="#cuisine">正宗美食</a></li>
+                    <li><a href="#calculator">预算</a></li>
+                    <li><a href="#destinations">景点</a></li>
+                    <li><a href="#cuisine">美食</a></li>
                 </ul>
             </div>
         </div>
@@ -663,7 +744,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="calculator" id="calculator">
-                    <h2>🧮 智能旅游预算计算器</h2>
+                    <h2>黄山太平湖周边游预算</h2>
                     
                     <div class="calculator-grid">
                         <div class="input-group">
@@ -771,7 +852,47 @@
                     <div class="recommendations" id="recommendations">
                         <!-- 推荐内容将由JavaScript填充 -->
                     </div>
+
+                    <!-- PDF下载区域 -->
+                    <div class="download-section">
+                        <h3 style="color: var(--charcoal); margin-bottom: 1rem;">📄 下载专属旅游计划书</h3>
+                        <p style="color: var(--medium-gray); margin-bottom: 1.5rem;">
+                            获取您的个性化预算方案和推荐清单，随时查看，方便规划
+                        </p>
+                        
+                        <div class="phone-input-container" id="phoneContainer">
+                            <p style="font-weight: bold; margin-bottom: 1rem;">请填写手机号，获取下载链接：</p>
+                            <input type="tel" 
+                                   class="phone-input" 
+                                   id="phoneNumber" 
+                                   placeholder="请输入手机号码" 
+                                   maxlength="11"
+                                   pattern="[0-9]{11}">
+                            <br>
+                            <button class="download-btn" onclick="downloadPDF()">📱 下载旅游计划书PDF</button>
+                            <p style="font-size: 0.9rem; color: var(--accent-gray); margin-top: 1rem;">
+                                *计划书将直接下载到您的设备，我们会将您加入黄山旅游攻略群
+                            </p>
+                        </div>
+                        
+                        <div id="downloadSuccess" style="display: none; background: var(--charcoal); color: white; padding: 1.5rem; border-radius: 10px; margin-top: 1rem;">
+                            <h4>✅ 下载成功</h4>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特产礼盒区域 -->
+    <section style="padding: 2rem 0; background: white;">
+        <div class="container">
+            <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                <h3 style="color: var(--charcoal); margin-bottom: 1rem;">🎁 正宗徽州特产礼盒</h3>
+                <p>精心搭配：徽州香肠 + 黄山毛峰 + 黄山烧饼 + 山核桃</p>
+                <p style="font-size: 1.2rem; font-weight: bold; margin: 1rem 0; color: var(--ink-black);">¥88-268 多规格礼盒装</p>
+                <p style="color: var(--medium-gray);">✈️ 机场可取货 | 🚚 包邮到家 | 🎀 精美包装</p>
+                <button class="btn" onclick="showFoodContact()" style="margin-top: 1rem;">联系购买正宗特产</button>
             </div>
         </div>
     </section>
@@ -787,7 +908,7 @@
                         <p><strong>门票：</strong>¥190-230（淡旺季）</p>
                         <p><strong>索道：</strong>上行¥80，下行¥65</p>
                         <p><strong>精华：</strong>日出云海、奇松怪石、温泉</p>
-                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                        <button class="details-btn" onclick="event.stopPropagation(); openModal('huangshan-modal')">查看详细攻略</button>
                     </div>
                 </div>
 
@@ -798,7 +919,7 @@
                         <p><strong>游船：</strong>¥68-120</p>
                         <p><strong>活动：</strong>湖上游船、垂钓、环湖徒步</p>
                         <p><strong>特色：</strong>山水倒影、湖鲜美食</p>
-                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                        <button class="details-btn" onclick="event.stopPropagation(); openModal('taipinghu-modal')">查看详细攻略</button>
                     </div>
                 </div>
 
@@ -809,7 +930,7 @@
                         <p><strong>门票：</strong>宏村¥104，西递¥104</p>
                         <p><strong>特色：</strong>世界文化遗产、徽派建筑</p>
                         <p><strong>体验：</strong>传统手工艺、茶道</p>
-                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                        <button class="details-btn" onclick="event.stopPropagation(); openModal('village-modal')">查看详细攻略</button>
                     </div>
                 </div>
 
@@ -820,7 +941,7 @@
                         <p><strong>门票：</strong>免费！</p>
                         <p><strong>特产：</strong>文房四宝、茶叶、传统糕点</p>
                         <p><strong>美食：</strong>正宗徽州小吃街</p>
-                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                        <button class="details-btn" onclick="event.stopPropagation(); openModal('tunxi-modal')">查看详细攻略</button>
                     </div>
                 </div>
 
@@ -831,7 +952,7 @@
                         <p><strong>门票：</strong>¥75</p>
                         <p><strong>索道：</strong>¥65（往返）</p>
                         <p><strong>特色：</strong>道教文化、丹霞地貌</p>
-                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                        <button class="details-btn" onclick="event.stopPropagation(); openModal('qiyun-modal')">查看详细攻略</button>
                     </div>
                 </div>
 
@@ -842,7 +963,7 @@
                         <p><strong>门票：</strong>¥100</p>
                         <p><strong>特色：</strong>明清古牌坊、徽商文化</p>
                         <p><strong>体验：</strong>历史文化讲解</p>
-                        <p style="color: var(--charcoal); font-weight: bold;">点击查看详细攻略</p>
+                        <button class="details-btn" onclick="event.stopPropagation(); openModal('tangyue-modal')">查看详细攻略</button>
                     </div>
                 </div>
             </div>
@@ -895,14 +1016,6 @@
                     <div class="description">人工发酵制作，表面长出白色绒毛，口感外酥内嫩，鲜美异常。</div>
                     <button class="detail-btn" onclick="openFoodDetail('maodoufu')">了解详情</button>
                 </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 2rem; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
-                <h3 style="color: var(--charcoal); margin-bottom: 1rem;">🎁 正宗徽州特产礼盒</h3>
-                <p>精心搭配：徽州香肠 + 黄山毛峰 + 黄山烧饼 + 山核桃</p>
-                <p style="font-size: 1.2rem; font-weight: bold; margin: 1rem 0; color: var(--ink-black);">¥88-268 多规格礼盒装</p>
-                <p style="color: var(--medium-gray);">✈️ 机场可取货 | 🚚 包邮到家 | 🎀 精美包装</p>
-                <button class="btn" onclick="showFoodContact()" style="margin-top: 1rem;">联系购买正宗特产</button>
             </div>
         </div>
     </section>
@@ -1162,6 +1275,251 @@
         const groupSizeMultipliers = [1, 1, 0.85, 0.75]; // 团体有优惠
         const groupSizeCounts = [1, 2, 4, 8]; // 对应实际人数
 
+        // 存储收集的手机号码（实际项目中应该发送到后端数据库）
+        let collectedPhones = [];
+
+        // 存储当前推荐数据
+        let currentRecommendations = {
+            accommodations: [],
+            restaurants: [],
+            localFoods: []
+        };
+
+        // 手机号验证
+        function validatePhone(phone) {
+            const phoneRegex = /^1[3-9]\d{9}$/;
+            return phoneRegex.test(phone);
+        }
+
+        // PDF下载功能
+        function downloadPDF() {
+            const phoneInput = document.getElementById('phoneNumber');
+            const phone = phoneInput.value.trim();
+            
+            if (!phone) {
+                alert('请输入手机号码');
+                return;
+            }
+            
+            if (!validatePhone(phone)) {
+                alert('请输入正确的手机号码格式');
+                return;
+            }
+            
+            // 收集手机号（实际项目中发送到数据库）
+            collectedPhones.push({
+                phone: phone,
+                timestamp: new Date().toISOString(),
+                budget: document.getElementById('perPersonAmount').textContent,
+                groupSize: groupSizeLabels[parseInt(document.getElementById('groupSize').value)]
+            });
+            
+            // 立即生成并下载PDF到用户设备
+            generateAndDownloadPDF(phone);
+            
+            // 显示成功信息
+            document.getElementById('phoneContainer').style.display = 'none';
+            document.getElementById('downloadSuccess').style.display = 'block';
+            
+            console.log('收集的手机号码:', collectedPhones); // 开发时查看，实际项目中删除
+        }
+
+        // 生成并下载PDF
+        function generateAndDownloadPDF(phone) {
+            // 获取当前预算信息
+            const groupSize = parseInt(document.getElementById('groupSize').value);
+            const comfort = parseInt(document.getElementById('comfort').value);
+            const duration = parseInt(document.getElementById('duration').value);
+            const food = parseInt(document.getElementById('food').value);
+            const transport = parseInt(document.getElementById('transport').value);
+            const shopping = parseInt(document.getElementById('shopping').value);
+            
+            const perPersonBudget = document.getElementById('perPersonAmount').textContent;
+            const totalBudget = document.getElementById('totalAmount').textContent;
+            
+            // 创建文本内容
+            let content = `
+黄山太平湖旅游计划书
+========================
+
+📱 联系方式: ${phone}
+📅 生成时间: ${new Date().toLocaleDateString()}
+
+💰 个人预算方案
+--------------
+出行人数: ${groupSizeLabels[groupSize]}
+住宿标准: ${comfortLabels[comfort]}
+游玩天数: ${durationLabels[duration]}
+餐饮偏好: ${foodLabels[food]}
+交通方式: ${transportLabels[transport]}
+特产购买: ${shoppingLabels[shopping]}
+
+每人预算: ${perPersonBudget}
+总预算: ${totalBudget}
+
+🏨 推荐住宿 (基于您的偏好)
+-----------------------`;
+
+            // 添加推荐酒店
+            if (currentRecommendations.accommodations && currentRecommendations.accommodations.length > 0) {
+                currentRecommendations.accommodations.forEach((hotel, index) => {
+                    content += `
+${index + 1}. ${hotel.name} ${hotel.rating}
+   价格: ${hotel.price}
+   ${hotel.desc}`;
+                });
+            }
+
+            content += `
+
+🍽️ 推荐餐厅 (基于您的偏好)
+-----------------------`;
+
+            // 添加推荐餐厅
+            if (currentRecommendations.restaurants && currentRecommendations.restaurants.length > 0) {
+                currentRecommendations.restaurants.forEach((restaurant, index) => {
+                    content += `
+${index + 1}. ${restaurant.name} ${restaurant.rating}
+   价格: ${restaurant.price}
+   招牌菜: ${restaurant.specialty}`;
+                });
+            }
+
+            content += `
+
+🛍️ 特产推荐 (基于您的偏好)
+-----------------------`;
+
+            // 添加特产推荐
+            if (currentRecommendations.localFoods && currentRecommendations.localFoods.length > 0) {
+                currentRecommendations.localFoods.forEach((food, index) => {
+                    const cleanDesc = food.desc.replace(/🔥|🌟|🎁|💫/g, '').trim();
+                    content += `
+${index + 1}. ${food.name}
+   价格: ${food.price}
+   ${cleanDesc}`;
+                });
+            }
+
+            content += `
+
+🏞️ 热门旅游景点
+--------------
+• 黄山风景区 - 门票: ¥190-230 (云海日出)
+• 太平湖风景区 - 游船: ¥68-120 (湖光山色)
+• 宏村古村落 - 门票: ¥104 (世界遗产)
+• 西递古村落 - 门票: ¥104 (徽派建筑)
+• 屯溪老街 - 免费 (特产购物)
+• 齐云山 - 门票: ¥75 (道教圣地)
+• 棠樾牌坊群 - 门票: ¥100 (徽商文化)
+
+🍽️ 必尝特色美食
+--------------
+• 臭鳜鱼 - ¥80-150/份 (徽菜代表)
+• 徽州香肠 - ¥25-45/包 (当地特产)
+• 黄山烧饼 - ¥3-8/个 (传统小食)
+• 黄山毛峰 - ¥50-300/盒 (名茶)
+• 李鸿章大杂烩 - ¥40-80/人 (历史名菜)
+• 毛豆腐 - ¥10-15/份 (独特风味)
+
+📞 联系方式
+----------
+特产咨询: 微信 RXM170114
+客服热线: 13917230759
+服务特色: 机场自取 | 全国包邮 | 游客专享价格
+
+徽州黄山游 - 正宗徽州体验
+            `.trim();
+
+            // 使用jsPDF创建PDF，但用图片方式渲染中文
+            try {
+                // 创建临时div来渲染内容
+                const tempDiv = document.createElement('div');
+                tempDiv.style.cssText = `
+                    position: absolute;
+                    left: -9999px;
+                    top: -9999px;
+                    width: 800px;
+                    padding: 40px;
+                    font-family: 'PingFang SC', 'Microsoft YaHei', '微软雅黑', 'SimSun', '宋体', sans-serif;
+                    font-size: 14px;
+                    line-height: 1.6;
+                    color: #000;
+                    background: white;
+                    white-space: pre-wrap;
+                `;
+                tempDiv.textContent = content;
+                document.body.appendChild(tempDiv);
+
+                // 使用html2canvas渲染
+                html2canvas(tempDiv, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: false,
+                    backgroundColor: 'white'
+                }).then(canvas => {
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 210; // A4宽度
+                    const pageHeight = 295; // A4高度
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+
+                    // 添加第一页
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    // 如果内容超过一页，添加额外页面
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    // 下载PDF
+                    const fileName = `黄山旅游计划书_${new Date().toLocaleDateString('zh-CN').replace(/\//g, '')}.pdf`;
+                    pdf.save(fileName);
+                    
+                    // 清理临时元素
+                    document.body.removeChild(tempDiv);
+                }).catch(error => {
+                    console.log('PDF generation failed, using text file');
+                    // 如果PDF生成失败，降级到文本文件
+                    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `黄山旅游计划书_${new Date().toLocaleDateString('zh-CN').replace(/\//g, '')}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    // 清理临时元素
+                    if (document.body.contains(tempDiv)) {
+                        document.body.removeChild(tempDiv);
+                    }
+                });
+                
+            } catch (error) {
+                // 如果PDF生成失败，降级到文本文件
+                console.log('PDF generation failed, using text file');
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `黄山旅游计划书_${new Date().toLocaleDateString('zh-CN').replace(/\//g, '')}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        }
+
         // 更新滑块显示值
         function updateSliderDisplay() {
             const groupSize = parseInt(document.getElementById('groupSize').value);
@@ -1328,6 +1686,13 @@
                 ];
             }
 
+            // 保存当前推荐数据
+            currentRecommendations = {
+                accommodations: accommodations,
+                restaurants: restaurants,
+                localFoods: localFoods
+            };
+
             // 生成推荐HTML
             recommendationsDiv.innerHTML = `
                 <div class="rec-section">
@@ -1368,12 +1733,6 @@
                                 ${food.highlight ? '<p style="color: var(--charcoal); font-weight: bold; margin-top: 0.5rem;">💫 正宗手工制作，游客必买！</p>' : ''}
                             </div>
                         `).join('')}
-                    </div>
-                    <div style="text-align: center; margin-top: 2rem; background: rgba(45,45,45,0.05); padding: 1.5rem; border-radius: 15px;">
-                        <p style="color: var(--charcoal); font-weight: bold; margin-bottom: 1rem;">
-                            🎯 想要品尝最正宗的徽州香肠和获取内部特产价格？
-                        </p>
-                        <button class="btn" onclick="showFoodContact()">联系我们的特产专家</button>
                     </div>
                 </div>
             `;
