@@ -213,6 +213,24 @@
             border-radius: 8px;
         }
 
+        .select-dropdown {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background: white;
+            color: var(--charcoal);
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .select-dropdown:focus {
+            outline: none;
+            border-color: var(--charcoal);
+            box-shadow: 0 0 0 3px rgba(45,45,45,0.1);
+        }
+
         .budget-result {
             background: linear-gradient(135deg, var(--charcoal) 0%, var(--ink-black) 100%);
             color: white;
@@ -744,9 +762,70 @@
         <div class="container">
             <div class="hero-content">
                 <div class="calculator" id="calculator">
-                    <h2>黄山太平湖周边游预算</h2>
+                    <h2>黄山太平湖旅游预算</h2>
                     
                     <div class="calculator-grid">
+                        <div class="input-group">
+                            <label>📍 出发地区</label>
+                            <select class="select-dropdown" id="departureCity" onchange="updateBudget()">
+                                <option value="0">安徽省内</option>
+                                
+                                <!-- 近距离省市 -->
+                                <optgroup label="🚄 近距离 (高铁1-4小时)">
+                                    <option value="1">上海市</option>
+                                    <option value="2" selected>浙江省(杭州)</option>
+                                    <option value="3">江苏省(南京)</option>
+                                    <option value="4">福建省(福州)</option>
+                                    <option value="5">江西省(南昌)</option>
+                                    <option value="6">湖北省(武汉)</option>
+                                    <option value="7">河南省(郑州)</option>
+                                </optgroup>
+                                
+                                <!-- 中距离省市 -->
+                                <optgroup label="🚅 中距离 (高铁4-7小时)">
+                                    <option value="8">北京市</option>
+                                    <option value="9">天津市</option>
+                                    <option value="10">广东省(广州)</option>
+                                    <option value="11">湖南省(长沙)</option>
+                                    <option value="12">山东省(济南)</option>
+                                    <option value="13">河北省(石家庄)</option>
+                                    <option value="14">山西省(太原)</option>
+                                    <option value="15">陕西省(西安)</option>
+                                    <option value="16">广西省(南宁)</option>
+                                    <option value="17">香港特别行政区</option>
+                                </optgroup>
+                                
+                                <!-- 中远距离省市 -->
+                                <optgroup label="✈️ 中远距离 (建议飞机)">
+                                    <option value="18">四川省(成都)</option>
+                                    <option value="19">重庆市</option>
+                                    <option value="20">云南省(昆明)</option>
+                                    <option value="21">贵州省(贵阳)</option>
+                                    <option value="22">辽宁省(沈阳)</option>
+                                    <option value="23">吉林省(长春)</option>
+                                    <option value="24">黑龙江省(哈尔滨)</option>
+                                    <option value="25">海南省(海口)</option>
+                                </optgroup>
+                                
+                                <!-- 远距离省市 -->
+                                <optgroup label="🛫 远距离 (飞机为主)">
+                                    <option value="26">内蒙古(呼和浩特)</option>
+                                    <option value="27">甘肃省(兰州)</option>
+                                    <option value="28">青海省(西宁)</option>
+                                    <option value="29">宁夏回族自治区(银川)</option>
+                                    <option value="30">澳门特别行政区</option>
+                                </optgroup>
+                                
+                                <!-- 极远距离 -->
+                                <optgroup label="🌍 极远距离 (仅飞机)">
+                                    <option value="31">西藏自治区(拉萨)</option>
+                                    <option value="32">新疆维吾尔自治区(乌鲁木齐)</option>
+                                    <option value="33">台湾省(台北)</option>
+                                </optgroup>
+                            </select>
+                            <div class="current-value" id="cityValue">浙江省(杭州) - 高铁1.5小时，最佳选择</div>
+                        </div>
+
                         <div class="input-group">
                             <label>👥 出行人数</label>
                             <div class="slider-container">
@@ -1271,6 +1350,65 @@
         const transportLabels = ['大巴出行', '高铁+当地包车', '自驾游', '飞机+租车'];
         const shoppingLabels = ['少量购买', '适量购买', '较多购买', '大量采购'];
 
+        // 34个省级行政区信息和距离分类
+        const cityData = {
+            // 安徽省本地
+            0: { name: '安徽省内', desc: '黄山本地，交通最便利', distance: 'local' },
+            
+            // 近距离 (4小时内)
+            1: { name: '上海市', desc: '高铁2.5-3小时，班次密集', distance: 'close' },
+            2: { name: '浙江省(杭州)', desc: '高铁1.5小时，最佳选择', distance: 'close' },
+            3: { name: '江苏省(南京)', desc: '高铁1.5-5小时，班次最多', distance: 'close' },
+            4: { name: '福建省(福州)', desc: '高铁2-3小时，直达便利', distance: 'close' },
+            5: { name: '江西省(南昌)', desc: '新线路2-3小时，性价比高', distance: 'close' },
+            6: { name: '湖北省(武汉)', desc: '高铁2小时52分，优秀选择', distance: 'close' },
+            7: { name: '河南省(郑州)', desc: '高铁5-6小时，需转车', distance: 'close' },
+
+            // 中距离 (4-7小时)
+            8: { name: '北京市', desc: '高铁5.5-7.5小时，班次较多', distance: 'medium' },
+            9: { name: '天津市', desc: '高铁6-7小时，班次有限', distance: 'medium' },
+            10: { name: '广东省(广州)', desc: '高铁5-7小时，飞机更快', distance: 'medium' },
+            11: { name: '湖南省(长沙)', desc: '高铁3小时47分，性价比佳', distance: 'medium' },
+            12: { name: '山东省(济南)', desc: '高铁3.5-6.5小时', distance: 'medium' },
+            13: { name: '河北省(石家庄)', desc: '高铁8-10小时，建议飞机', distance: 'medium' },
+            14: { name: '山西省(太原)', desc: '高铁7-9小时，转车较多', distance: 'medium' },
+            15: { name: '陕西省(西安)', desc: '高铁7-7.5小时，有直飞', distance: 'medium' },
+            16: { name: '广西省(南宁)', desc: '高铁8-12小时，多次转车', distance: 'medium' },
+            17: { name: '香港特别行政区', desc: '2025年新开高铁直达8.5小时', distance: 'medium' },
+
+            // 中远距离 (7-12小时)
+            18: { name: '四川省(成都)', desc: '高铁11小时，飞机2.5小时', distance: 'medium-far' },
+            19: { name: '重庆市', desc: '高铁11小时，飞机2小时15分', distance: 'medium-far' },
+            20: { name: '云南省(昆明)', desc: '建议飞机，高铁需多次转车', distance: 'medium-far' },
+            21: { name: '贵州省(贵阳)', desc: '飞机最实用，高铁6-8小时', distance: 'medium-far' },
+            22: { name: '辽宁省(沈阳)', desc: '高铁10-11小时，飞机2.5-3小时', distance: 'medium-far' },
+            23: { name: '吉林省(长春)', desc: '高铁11-13小时，建议飞机', distance: 'medium-far' },
+            24: { name: '黑龙江省(哈尔滨)', desc: '高铁12-14小时，飞机3-4小时', distance: 'medium-far' },
+            25: { name: '海南省(海口)', desc: '飞机2.5小时直达，高铁需轮渡', distance: 'medium-far' },
+
+            // 远距离 (12-20小时)
+            26: { name: '内蒙古(呼和浩特)', desc: '建议飞机4-7小时', distance: 'far' },
+            27: { name: '甘肃省(兰州)', desc: '飞机最佳，高铁10-12小时', distance: 'far' },
+            28: { name: '青海省(西宁)', desc: '飞机推荐，高铁12-15小时', distance: 'far' },
+            29: { name: '宁夏回族自治区(银川)', desc: '飞机最实用8-12小时', distance: 'far' },
+            30: { name: '澳门特别行政区', desc: '高铁8-10小时经珠海', distance: 'far' },
+
+            // 极远距离 (20+小时)
+            31: { name: '西藏自治区(拉萨)', desc: '仅飞机可行，需要入藏证', distance: 'very-far' },
+            32: { name: '新疆维吾尔自治区(乌鲁木齐)', desc: '仅飞机可行，40+小时火车', distance: 'very-far' },
+            33: { name: '台湾省(台北)', desc: '需经第三地中转', distance: 'very-far' }
+        };
+
+        // 交通费用矩阵 [大巴, 高铁, 自驾, 飞机] × 距离 (基于实际调研数据)
+        const transportCostMatrix = {
+            'local': [20, 50, 80, 0],           // 安徽省内
+            'close': [90, 150, 250, 600],       // 近距离：浙江、江苏、上海等
+            'medium': [200, 400, 600, 1200],    // 中距离：北京、广东、湖南等
+            'medium-far': [350, 650, 800, 1500], // 中远距离：四川、重庆、东北等
+            'far': [500, 800, 1200, 2000],      // 远距离：内蒙古、甘肃、宁夏等
+            'very-far': [0, 0, 0, 3000]         // 极远距离：西藏、新疆、台湾(仅飞机)
+        };
+
         // 人数对应的倍数
         const groupSizeMultipliers = [1, 1, 0.85, 0.75]; // 团体有优惠
         const groupSizeCounts = [1, 2, 4, 8]; // 对应实际人数
@@ -1311,7 +1449,8 @@
                 phone: phone,
                 timestamp: new Date().toISOString(),
                 budget: document.getElementById('perPersonAmount').textContent,
-                groupSize: groupSizeLabels[parseInt(document.getElementById('groupSize').value)]
+                groupSize: groupSizeLabels[parseInt(document.getElementById('groupSize').value)],
+                departureCity: cityData[parseInt(document.getElementById('departureCity').value)].name
             });
             
             // 立即生成并下载PDF到用户设备
@@ -1327,6 +1466,7 @@
         // 生成并下载PDF
         function generateAndDownloadPDF(phone) {
             // 获取当前预算信息
+            const departureCity = parseInt(document.getElementById('departureCity').value);
             const groupSize = parseInt(document.getElementById('groupSize').value);
             const comfort = parseInt(document.getElementById('comfort').value);
             const duration = parseInt(document.getElementById('duration').value);
@@ -1347,6 +1487,7 @@
 
 💰 个人预算方案
 --------------
+出发城市: ${cityData[departureCity].name}
 出行人数: ${groupSizeLabels[groupSize]}
 住宿标准: ${comfortLabels[comfort]}
 游玩天数: ${durationLabels[duration]}
@@ -1356,6 +1497,36 @@
 
 每人预算: ${perPersonBudget}
 总预算: ${totalBudget}
+
+🚗 交通建议 (从${cityData[departureCity].name}出发)
+-----------------------`;
+
+            // 添加交通建议
+            const distance = cityData[departureCity].distance;
+            const costs = transportCostMatrix[distance];
+            
+            if (distance === 'local') {
+                content += `
+当地出行，交通便利：
+• 市内公交: ¥${costs[0]} (黄山市区到景区)
+• 包车服务: ¥${costs[1]} (半日包车)
+• 自驾出行: ¥${costs[2]} (停车费+油费)
+• 推荐：选择当地包车或公交，最为便利`;
+            } else if (distance === 'very-far') {
+                content += `
+远距离出行，建议飞机：
+• 飞机出行: ¥${costs[3]} (唯一实用选择)
+• 注意：需要提前办理相关证件和手续`;
+            } else {
+                content += `
+推荐交通方式及预估费用：
+• 大巴出行: ¥${costs[0]} (经济实惠，时间较长)
+• 高铁出行: ¥${costs[1]} (速度快，舒适度高)
+• 自驾出行: ¥${costs[2]} (自由度高，含油费过路费)
+• 飞机出行: ¥${costs[3]} (最快捷，适合远距离)`;
+            }
+
+            content += `
 
 🏨 推荐住宿 (基于您的偏好)
 -----------------------`;
@@ -1520,6 +1691,13 @@ ${index + 1}. ${food.name}
             }
         }
 
+        // 更新城市显示
+        function updateCityDisplay() {
+            const departureCity = parseInt(document.getElementById('departureCity').value);
+            const cityInfo = cityData[departureCity];
+            document.getElementById('cityValue').textContent = `${cityInfo.name} - ${cityInfo.desc}`;
+        }
+
         // 更新滑块显示值
         function updateSliderDisplay() {
             const groupSize = parseInt(document.getElementById('groupSize').value);
@@ -1539,6 +1717,7 @@ ${index + 1}. ${food.name}
 
         // 预算计算逻辑
         function updateBudget() {
+            const departureCity = parseInt(document.getElementById('departureCity').value);
             const groupSize = parseInt(document.getElementById('groupSize').value);
             const comfort = parseInt(document.getElementById('comfort').value);
             const duration = parseInt(document.getElementById('duration').value);
@@ -1562,8 +1741,10 @@ ${index + 1}. ${food.name}
             const foodMultipliers = [0.75, 1.0, 1.4, 2.0];
             basePricePerDay *= foodMultipliers[food];
             
-            // 交通费用 (每人)
-            const transportCosts = [150, 350, 200, 800][transport]; // 大巴、高铁、自驾油费、飞机
+            // 交通费用 (基于出发城市和交通方式)
+            const distance = cityData[departureCity].distance;
+            const transportCosts = transportCostMatrix[distance];
+            const transportCost = transportCosts[transport];
             
             // 特产购买费用 (每人)
             const shoppingCosts = [50, 150, 300, 600][shopping];
@@ -1573,7 +1754,7 @@ ${index + 1}. ${food.name}
             const actualGroupSize = groupSizeCounts[groupSize];
             
             // 计算每人预算
-            const perPersonBudget = Math.round((basePricePerDay * durationDays + transportCosts + shoppingCosts) * groupMultiplier);
+            const perPersonBudget = Math.round((basePricePerDay * durationDays + transportCost + shoppingCosts) * groupMultiplier);
             const totalBudget = perPersonBudget * actualGroupSize;
             
             // 显示预算范围
@@ -1585,6 +1766,7 @@ ${index + 1}. ${food.name}
             
             // 更新滑块显示
             updateSliderDisplay();
+            updateCityDisplay();
             
             // 生成推荐
             generateRecommendations(groupSize, comfort, duration, food, transport, shopping, perPersonBudget);
@@ -1938,6 +2120,8 @@ ${index + 1}. ${food.name}
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 设置默认选择浙江省
+            document.getElementById('departureCity').value = '2';
             updateBudget();
             
             // 添加移动端菜单按钮
