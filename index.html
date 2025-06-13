@@ -6,6 +6,7 @@
     <title>黄山太平湖旅游预算规划 | 正宗徽州味道</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -676,6 +677,37 @@
             box-shadow: none;
         }
 
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            background: #28a745;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .error-message {
+            background: #dc3545;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
         /* 响应式设计 */
         @media (max-width: 1024px) {
             .hero h1 {
@@ -948,14 +980,16 @@
                                    maxlength="11"
                                    pattern="[0-9]{11}">
                             <br>
-                            <button class="download-btn" onclick="downloadPDF()">📱 下载旅游计划书PDF</button>
+                            <button class="download-btn" onclick="downloadPDF()" id="downloadButton">
+                                📱 下载旅游计划书PDF
+                            </button>
                             <p style="font-size: 0.9rem; color: var(--accent-gray); margin-top: 1rem;">
                                 *计划书将直接下载到您的设备，我们会将您加入黄山旅游攻略群
                             </p>
                         </div>
                         
-                        <div id="downloadSuccess" style="display: none; background: var(--charcoal); color: white; padding: 1.5rem; border-radius: 10px; margin-top: 1rem;">
-                            <h4>✅ 下载成功</h4>
+                        <div id="downloadMessage" style="display: none; margin-top: 1rem;">
+                            <!-- Success/error messages will appear here -->
                         </div>
                     </div>
                 </div>
@@ -1342,6 +1376,47 @@
     </footer>
 
     <script>
+        // Initialize Supabase client
+        const SUPABASE_URL = 'https://fdamfvpazvfownthbzzt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkYW1mdnBhenZmb3dudGhienp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk3OTUxNzAsImV4cCI6MjA2NTM3MTE3MH0.ae0FBsgBXoc23G0sQpBCqLlXrPpa6AhOfK4cMPcywQM';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Function to save phone number to Supabase
+        async function savePhoneToSupabase(phoneData) {
+            try {
+                const { data, error } = await supabase
+                    .from('phone_submissions')
+                    .insert([phoneData]);
+                
+                if (error) {
+                    console.error('Error saving to Supabase:', error);
+                    return false;
+                }
+                
+                console.log('Phone number saved successfully:', data);
+                return true;
+            } catch (error) {
+                console.error('Error:', error);
+                return false;
+            }
+        }
+
+        // Function to show success/error messages
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('downloadMessage');
+            messageDiv.style.display = 'block';
+            messageDiv.className = type === 'success' ? 'success-message' : 'error-message';
+            messageDiv.innerHTML = `<h4>${message}</h4>`;
+            
+            // Auto-hide error messages after 5 seconds
+            if (type === 'error') {
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
         // 滑块值标签
         const groupSizeLabels = ['独自一人', '情侣出行', '小团体(3-5人)', '大团体(6+人)'];
         const comfortLabels = ['经济型住宿', '标准舒适', '品质享受', '豪华体验'];
@@ -1413,9 +1488,6 @@
         const groupSizeMultipliers = [1, 1, 0.85, 0.75]; // 团体有优惠
         const groupSizeCounts = [1, 2, 4, 8]; // 对应实际人数
 
-        // 存储收集的手机号码（实际项目中应该发送到后端数据库）
-        let collectedPhones = [];
-
         // 存储当前推荐数据
         let currentRecommendations = {
             accommodations: [],
@@ -1430,37 +1502,63 @@
         }
 
         // PDF下载功能
-        function downloadPDF() {
+        async function downloadPDF() {
             const phoneInput = document.getElementById('phoneNumber');
+            const downloadButton = document.getElementById('downloadButton');
             const phone = phoneInput.value.trim();
             
             if (!phone) {
-                alert('请输入手机号码');
+                showMessage('请输入手机号码', 'error');
                 return;
             }
             
             if (!validatePhone(phone)) {
-                alert('请输入正确的手机号码格式');
+                showMessage('请输入正确的手机号码格式', 'error');
                 return;
             }
             
-            // 收集手机号（实际项目中发送到数据库）
-            collectedPhones.push({
-                phone: phone,
-                timestamp: new Date().toISOString(),
-                budget: document.getElementById('perPersonAmount').textContent,
-                groupSize: groupSizeLabels[parseInt(document.getElementById('groupSize').value)],
-                departureCity: cityData[parseInt(document.getElementById('departureCity').value)].name
-            });
+            // Show loading state
+            downloadButton.disabled = true;
+            downloadButton.innerHTML = '<div class="loading"></div>正在处理...';
             
-            // 立即生成并下载PDF到用户设备
-            generateAndDownloadPDF(phone);
-            
-            // 显示成功信息
-            document.getElementById('phoneContainer').style.display = 'none';
-            document.getElementById('downloadSuccess').style.display = 'block';
-            
-            console.log('收集的手机号码:', collectedPhones); // 开发时查看，实际项目中删除
+            try {
+                // Prepare data to save
+                const phoneData = {
+                    phone: phone,
+                    budget: document.getElementById('perPersonAmount').textContent,
+                    group_size: groupSizeLabels[parseInt(document.getElementById('groupSize').value)],
+                    departure_city: cityData[parseInt(document.getElementById('departureCity').value)].name,
+                    comfort_level: comfortLabels[parseInt(document.getElementById('comfort').value)],
+                    duration: durationLabels[parseInt(document.getElementById('duration').value)],
+                    food_preference: foodLabels[parseInt(document.getElementById('food').value)],
+                    transport_method: transportLabels[parseInt(document.getElementById('transport').value)],
+                    shopping_preference: shoppingLabels[parseInt(document.getElementById('shopping').value)]
+                };
+                
+                // Save to Supabase
+                const saved = await savePhoneToSupabase(phoneData);
+                
+                if (saved) {
+                    // Generate and download PDF
+                    await generateAndDownloadPDF(phone);
+                    
+                    // Show success message
+                    showMessage('✅ 信息已保存，PDF开始下载！我们会将您加入黄山旅游攻略群。', 'success');
+                    
+                    // Hide the phone input form
+                    document.getElementById('phoneContainer').style.display = 'none';
+                } else {
+                    showMessage('❌ 保存失败，请重试', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error in downloadPDF:', error);
+                showMessage('❌ 处理失败，请重试', 'error');
+            } finally {
+                // Reset button state
+                downloadButton.disabled = false;
+                downloadButton.innerHTML = '📱 下载旅游计划书PDF';
+            }
         }
 
         // 生成并下载PDF
